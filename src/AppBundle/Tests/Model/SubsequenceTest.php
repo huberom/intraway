@@ -61,10 +61,4 @@ class SubsequenceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($results, [0 => 80]);
     }
 
-    public function compareArrays($arrayA,$arrayB)
-    {
-        if ($arrayA === $arrayB) return true;
-        else return false;
-    }
-
 }
