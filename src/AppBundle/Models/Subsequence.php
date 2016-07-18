@@ -102,7 +102,7 @@ class Subsequence
 
     /**
      * Calculates the maximun sequence weight using a recursive strategy
-     * Unfortunatelly i'm not the owner of this aproach :(. This is taken from :
+     * Unfortunatelly i'm not the owner of this aproach :(. This is based on this solution :
      * http://www.programminglogic.com/codesprint-2-problem-subsequence-weighting/
      *
      * @param int $reference The initial reference in the tree

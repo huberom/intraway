@@ -26,8 +26,8 @@ class SequenceController extends Controller
     {
         $msg = '';
 
-        return $this->render('home.html.twig',
-            compact('msg')
+        return $this->render($this->view_path.'home.html.twig',
+            ['msg' => $msg]
         );
     }
 
@@ -49,7 +49,7 @@ class SequenceController extends Controller
 
         if (count($errors) > 0) {
             $msg = 'Please check form options and try again';
-            return $this->render('home.html.twig',
+            return $this->render($this->view_path.'home.html.twig',
                 compact('msg')
             );
         }
@@ -59,20 +59,8 @@ class SequenceController extends Controller
         $results = $s->calculate();
         $msg = '';
 
-        return $this->render('result.html.twig',
+        return $this->render($this->view_path.'result.html.twig',
             compact('results', 'msg')
         );
     }
-
-    /**
-     * Custom method for rendering bundle current bundle views
-     * @param string $view
-     * @param array  $params
-     * @return \Symfony\Component\HttpFoundation\Response A Response instance
-     */
-    public function render($view, $params)
-    {
-        return parent::render($this->view_path.$view, $params);
-    }
-
 }

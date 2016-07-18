@@ -11,59 +11,60 @@ use AppBundle\DataSources\RequestSource;
 
 class SubsequenceTest extends \PHPUnit_Framework_TestCase
 {
-    /** 
-     * @dataProvider requestProvider
+    /**
+     * @var array Data test
      */
-    public function testCalculate(BaseSource $source)
+    public $post = [
+        't' => 1,
+        'cases' => [
+            0 => "4\n1 4 3 4\n10 20 30 40",
+        ]
+    ];
+
+    /**
+     * Test to check if datasource is delivering
+     * the correct format of the data
+     */
+    public function testDatasource()
     {
+        $source = new RequestSource();
+        $source->setData($this->post);
+
+        $result = $source->getData();
+
+        $expected = array(
+            't' => 1,
+            'cases' => array(
+                0 => array(
+                    'n' => 4,
+                    'a' => array(0=>1,1=>4,2=>3,3=>4),
+                    'w' => array(0=>10,1=>20,2=>30,3=>40),
+                ),
+            ),
+       );
+
+       $this->assertEquals($result, $expected);
+    }
+
+    /**
+     * Test for the Subsecence calculate method
+     */
+    public function testCalculate()
+    {
+        $source = new RequestSource();
+        $source->setData($this->post);
+
         $s = new Subsequence();
         $s->setData($source);
         $results = $s->calculate();
 
-        $this->assertTrue($this->indenticalArrays($results, [0 => 80]));
+        $this->assertEquals($results, [0 => 80]);
     }
 
-    public function requestProvider()
+    public function compareArrays($arrayA,$arrayB)
     {
-        $post = [
-            't_cases' => 1,
-            'cases' => Array (
-                [0] => '4
-                       1 4 3 4
-                       10 20 30 40'
-                )
-        ];
-        
-        $source = new RequestSource();
-        $source->setData($post);
-
-        return $source;
+        if ($arrayA === $arrayB) return true;
+        else return false;
     }
 
-    /**
-     * Determine if two associative arrays are similar
-     *
-     * Both arrays must have the same indexes with identical values
-     * without respect to key ordering 
-     * 
-     * @param array $a
-     * @param array $b
-     * @return bool
-     */
-    public function indenticalArrays($a, $b)
-    {
-        // if the indexes don't match, return immediately
-        if (count(array_diff_assoc($a, $b))) {
-            return false;
-        }
-        // we know that the indexes, but maybe not values, match.
-        // compare the values between the two arrays
-        foreach($a as $k => $v) {
-            if ($v !== $b[$k]) {
-                return false;
-            }
-        }
-        // we have identical indexes, and no unequal values
-        return true;
-    }
 }
