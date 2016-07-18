@@ -1,0 +1,9 @@
+homepage:
+    path:     /
+    defaults: { _controller: AppBundle:Sequence:index }
+    methods:  [GET]
+
+process_sequence:
+    path:     /process
+    defaults: { _controller: AppBundle:Sequence:process }
+    methods:  [POST]

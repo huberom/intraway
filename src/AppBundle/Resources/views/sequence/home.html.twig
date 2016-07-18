@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <br>
+    <div class="jumbotron">
+        <h1>Subsequence Weighting</h1>
+        <p>Intraway test</p>
+
+        <form action="{{ url('process_sequence') }}" method="post" data-bind="submit: validatesSubmit">
+
+            {% if msg %}
+            <div class="alert alert-danger">
+                {{ msg }}
+            </div>
+            {% endif %}
+
+            <div class="alert alert-danger" data-bind="visible: alertVisible, text:alert">
+            </div>
+
+            <div class="form-group">
+                <label for="importform-file" class="control-label">T Cases</label>
+                <input type="text" name="t_cases"  class="form-control" data-bind="value:cases, event:{ change: createCases}">
+            </div>
+
+            <div data-bind="visible: testCases().length > 0">
+
+                <div data-bind="foreach: testCases">
+                    <div class="form-group">
+                        <label for="n_numbers" class="control-label">Case <span data-bind="text: index"></span> </label>
+                        <textarea class="form-control" name="case[]" data-bind="attr: {id:'case_'+index}" rows="3"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <input type="submit" value="Process" name="submit" class="btn btn-primary btn-lg" data-bind="enable: canProcess">
+        </form>
+    </div>
+
+{% endblock %}
