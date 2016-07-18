@@ -40,9 +40,6 @@ class SequenceController extends Controller
     {
         $data['t']     = $request->request->get('t_cases');
         $data['cases'] = $request->request->get('case');
-        
-        print_r($_POST);
-        die();
 
         $source = new RequestSource();
         $source->setData($data, RequestSource::TYPE_POST);
