@@ -120,8 +120,8 @@ class Subsequence
             }
         }
 
-        $t = 0;
-        $d = 0;
+        $t = 0; // comment 1
+        $d = 0; // comment 2
 
         if ($reference === $currrent) {
             $t = $this->w[$currrent] + $this->recursiveCalcultation($currrent,$currrent+1,$n);
